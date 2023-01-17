@@ -2,6 +2,6 @@
 
 A folder containing all general assets required for all Oasis projects.
 
-Visit jsDelivr for geting assets directly out of github.
+Can be accessed from the path **[https://assets.myoasis.tech/:appname/:contentpath](https://assets.myoasis.tech/)**
 
-> *To open jsDelivr - Oasis-Assets latest release <a href="https://cdn.jsdelivr.net/gh/shivamdevs/Oasis-Assets@latest/" target="_blank">**Click here**</a>.*
+> For example to access the Oasis logo use path [https://assets.myoasis.tech/oasis/oasis-transparent.png](https://assets.myoasis.tech/oasis/oasis-transparent.png)
