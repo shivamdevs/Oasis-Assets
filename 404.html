@@ -23,10 +23,6 @@
             font-size: 16px;
         }
 
-        code {
-            font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-        }
-
         body,
         html,
         *,
@@ -47,8 +43,6 @@
             flex-direction: column;
             position: fixed;
             inset: 0;
-            height: 100vh;
-            width: 100vw;
             z-index: 1;
         }
 
@@ -185,14 +179,6 @@
             font-size: 40px;
         }
 
-        .flicker-slow {
-            animation: flicker 3s linear infinite;
-        }
-
-        .flicker-fast {
-            animation: flicker 1s linear infinite;
-        }
-
         @media screen and (max-width: 401px) {
             .header, .footer {
                 gap: 10px;
@@ -200,31 +186,6 @@
             }
             .ftflow {
                 gap: 10px;
-            }
-        }
-
-        @keyframes flicker {
-
-            0%,
-            19.999%,
-            22%,
-            62.999%,
-            64%,
-            64.999%,
-            70%,
-            100% {
-                /* text-shadow: none; */
-                opacity: .99;
-
-            }
-
-            20%,
-            21.999%,
-            63%,
-            63.999%,
-            65%,
-            69.999% {
-                opacity: 0.4;
             }
         }
     </style>
@@ -246,8 +207,8 @@
         </header>
         <main class="main">
             <div class="neon">
-                <div class="neontop"><span class="flicker-fast">4</span><span class="flicker-slow">0</span><span class="flicker-fast">4</span></div>
-                <div class="neonbot">p<span class="flicker-fast">A</span>g<span class="flicker-slow">E</span> n<span class="flicker-fast">O</span>t <span class="flicker-slow">F</span>oU<span class="flicker-fast">n</span>D</div>
+                <div class="neontop">404</div>
+                <div class="neonbot">pAgE NoT FoUnD</div>
             </div>
         </main>
         <footer class="footer">
@@ -279,32 +240,18 @@
         }
         const size = random(50, 150);
         const possibility = [
-            {
-                sx: random(0 - size, window.innerWidth + size),
-                sy: window.innerHeight + size,
-                ex: random(0 - size, window.innerWidth + size),
-                ey: 0 - size,
-            },
-            {
-                sx: random(0 - size, window.innerWidth + size),
-                sy: 0 - size,
-                ex: random(0 - size, window.innerWidth + size),
-                ey: window.innerHeight + size,
-            },
-            {
-                sx: 0 - size,
-                sy: random(0 - size, window.innerHeight + size),
-                ex: window.innerWidth + size,
-                ey: random(0 - size, window.innerHeight + size),
-            },
-            {
-                sx: window.innerWidth + size,
-                sy: random(0 - size, window.innerHeight + size),
-                ex: 0 - size,
-                ey: random(0 - size, window.innerHeight + size),
-            },
+            0 - size,
+            window.innerWidth + size,
+            window.innerHeight + size,
+            random(0 - size, window.innerWidth + size),
+            random(0 - size, window.innerHeight + size),
         ];
-        const coor = possibility[random(0, 3)];
+        const coor = {
+            sx: possibility[random(0, possibility.length - 1)],
+            sy: possibility[random(0, possibility.length - 1)],
+            ex: possibility[random(0, possibility.length - 1)],
+            ey: possibility[random(0, possibility.length - 1)],
+        };
         return {
             s: size,
             sx: coor.sx,
@@ -320,8 +267,8 @@
     let generated_start = 0;
     function generate_stars() {
         const x = document.getElementById('sky');
-        for (let i = 0; i < random(20, 70); i++) {
-            if (generated_start > 500) return generate_stars_max();
+        for (let i = 0; i < random(20, 50); i++) {
+            if (generated_start > 250) return generate_stars_max();
             const s = document.createElement('div');
             s.className = 'star';
             x.appendChild(s);
@@ -384,7 +331,7 @@
         const s = x.getElementsByClassName('star').length;
         const r = x.getElementsByClassName('rocket').length;
         c.innerHTML = `[🚀 : ${r} | ⭐ : ${s}]`;
-        setTimeout(count_sky, 100);
+        setTimeout(count_sky, 500);
     }
     count_sky();
 </script>
