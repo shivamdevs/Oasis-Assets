@@ -72,17 +72,20 @@
             display: inline-block;
             white-space: nowrap;
             color: #fff;
+            font-family:'Courier New', Courier, monospace;
         }
 
 
         .ftcopy {
             color: #bbb;
+            white-space: nowrap;
         }
 
         .ftflow {
             display: inline-flex;
             gap: 20px;
             flex-wrap: wrap;
+            justify-content: flex-end;
         }
 
         .ftadd {
@@ -122,7 +125,7 @@
         }
 
         .boundry {
-            animation: rotating_sky 10s infinite 0s;
+            animation: rotating_sky 10s infinite linear;
             background-image: linear-gradient(0deg, #6B4984, #483475, #2B2F77, #141852, #070B34);
             position: fixed;
             inset: -50vw -50vh;
@@ -179,7 +182,44 @@
             font-size: 40px;
         }
 
+        .flicker-slow {
+            animation: flicker 5s linear infinite;
+        }
+
+        .flicker-fast {
+            animation: flicker 2.5s linear infinite;
+        }
+
+        @keyframes flicker {
+
+            0%,
+            19.999%,
+            22%,
+            62.999%,
+            64%,
+            64.999%,
+            70%,
+            100% {
+                /* text-shadow: none; */
+                opacity: .99;
+
+            }
+
+            20%,
+            21.999%,
+            63%,
+            63.999%,
+            65%,
+            69.999% {
+                opacity: 0.4;
+            }
+        }
+
         @media screen and (max-width: 401px) {
+            .hdlogo {
+                width: 30px;
+                height: 30px;
+            }
             .header, .footer {
                 gap: 10px;
                 padding-inline: 10px;
@@ -207,15 +247,17 @@
         </header>
         <main class="main">
             <div class="neon">
-                <div class="neontop">404</div>
-                <div class="neonbot">pAgE NoT FoUnD</div>
+<div class="neontop"><span class="flicker-fast">4</span><span class="flicker-slow">0</span><span
+        class="flicker-fast">4</span></div>
+<div class="neonbot">p<span class="flicker-fast">A</span>g<span class="flicker-slow">E</span> n<span
+        class="flicker-fast">O</span>t <span class="flicker-slow">F</span>oU<span class="flicker-fast">n</span>D</div>
             </div>
         </main>
         <footer class="footer">
             <div class="ftcopy">© Myoasis.tech</div>
             <div class="ftflow">
-                <button class="ftadd" id="rocket" onclick="generate_rocket()">Launch another rocket</button>
                 <button class="ftadd" id="star" onclick="generate_stars()">Add stars in the sky</button>
+                <button class="ftadd" id="rocket" onclick="generate_rocket()">Launch another rocket</button>
             </div>
         </footer>
     </div>
@@ -240,18 +282,32 @@
         }
         const size = random(50, 150);
         const possibility = [
-            0 - size,
-            window.innerWidth + size,
-            window.innerHeight + size,
-            random(0 - size, window.innerWidth + size),
-            random(0 - size, window.innerHeight + size),
+            {
+                sx: random(0 - size, window.innerWidth + size),
+                sy: window.innerHeight + size,
+                ex: random(0 - size, window.innerWidth + size),
+                ey: 0 - size,
+            },
+            {
+                sx: random(0 - size, window.innerWidth + size),
+                sy: 0 - size,
+                ex: random(0 - size, window.innerWidth + size),
+                ey: window.innerHeight + size,
+            },
+            {
+                sx: 0 - size,
+                sy: random(0 - size, window.innerHeight + size),
+                ex: window.innerWidth + size,
+                ey: random(0 - size, window.innerHeight + size),
+            },
+            {
+                sx: window.innerWidth + size,
+                sy: random(0 - size, window.innerHeight + size),
+                ex: 0 - size,
+                ey: random(0 - size, window.innerHeight + size),
+            },
         ];
-        const coor = {
-            sx: possibility[random(0, possibility.length - 1)],
-            sy: possibility[random(0, possibility.length - 1)],
-            ex: possibility[random(0, possibility.length - 1)],
-            ey: possibility[random(0, possibility.length - 1)],
-        };
+        const coor = possibility[random(0, possibility.length - 1)];
         return {
             s: size,
             sx: coor.sx,
@@ -262,25 +318,30 @@
         };
     };
 
-
+    // declare constant variables
+    const sky = document.getElementById('sky');
+    const star = document.getElementById('star');
+    const counter = document.getElementById("counter");
+    const rocket = document.querySelector('.hidden .rocket');
+    let generated_stars = 0;
+    let generated_rockets = 0;
+    
     // stars
-    let generated_start = 0;
     function generate_stars() {
-        const x = document.getElementById('sky');
-        for (let i = 0; i < random(20, 50); i++) {
-            if (generated_start > 250) return generate_stars_max();
+        for (let i = 0; i < random(30, 60); i++) {
+            if (generated_stars >= 250) return generate_stars_max();
             const s = document.createElement('div');
             s.className = 'star';
-            x.appendChild(s);
+            sky.appendChild(s);
             generate_stars_fly(s, 1);
-            generated_start++;
+            generated_stars++;
         }
     }
     function generate_stars_max() {
-        const b = document.getElementById('star');
-        b.innerHTML = "Sky is full of stars";
-        b.disabled = true;
+        star.innerHTML = "Sky is full of stars";
+        star.disabled = true;
     }
+
     function generate_stars_fly(i, f) {
         const s = random(1, 5);
         const t = f ? random(0, 500) : random(5000, 10000);
@@ -303,34 +364,32 @@
             e.style.top = t + "px";
             e.style.left = l + "px";
         }
-        const x = document.getElementById('sky');
-        const r = document.querySelector('.hidden .rocket').cloneNode();
+        const r = rocket.cloneNode();
         const c = random_coordinate();
-        const t = random(3000, 6000);
+        const t = random(window.innerHeight * 5, window.innerWidth * 6);
         const l = 20;
         r.style.width = c.s + "px";
         r.style.height = c.s + "px";
         r.style.rotate = (c.a + 90) + "deg";
         r.style.transition = t + "ms linear";
         set_coordinates(r, c.sx, c.sy);
-        x.appendChild(r);
+        sky.appendChild(r);
         setTimeout(() => set_coordinates(r, c.ex, c.ey), l);
-        setTimeout(() => x.removeChild(r), t + l);
+        setTimeout(() => {
+            sky.removeChild(r);
+            generated_rockets--;
+        }, t + l);
+        generated_rockets++;
     }
 
     // auto generate stars and rockets
     generate_stars();
     generate_rocket();
-    setInterval(generate_rocket, 3000);
     setInterval(generate_rocket, 5000);
 
     // count stars and rockets
     function count_sky() {
-        const x = document.getElementById('sky');
-        const c = document.getElementById("counter");
-        const s = x.getElementsByClassName('star').length;
-        const r = x.getElementsByClassName('rocket').length;
-        c.innerHTML = `[🚀 : ${r} | ⭐ : ${s}]`;
+        counter.innerHTML = `[${generated_stars}:⭐|🚀:${generated_rockets}]`;
         setTimeout(count_sky, 500);
     }
     count_sky();
