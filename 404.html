@@ -82,7 +82,7 @@
         .ftflow {
             display: inline-flex;
             gap: 20px;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
         }
 
         .ftadd {
@@ -214,8 +214,8 @@
         <footer class="footer">
             <div class="ftcopy">© Myoasis.tech</div>
             <div class="ftflow">
-                <button class="ftadd" id="rocket" onclick="generate_rocket()">Throw rocket</button>
-                <button class="ftadd" id="star" onclick="generate_stars()">Add stars</button>
+                <button class="ftadd" id="rocket" onclick="generate_rocket()">Launch another rocket</button>
+                <button class="ftadd" id="star" onclick="generate_stars()">Add stars in the sky</button>
             </div>
         </footer>
     </div>
@@ -278,7 +278,7 @@
     }
     function generate_stars_max() {
         const b = document.getElementById('star');
-        b.innerHTML = "Max stars in the sky";
+        b.innerHTML = "Sky is full of stars";
         b.disabled = true;
     }
     function generate_stars_fly(i, f) {
@@ -321,8 +321,8 @@
     // auto generate stars and rockets
     generate_stars();
     generate_rocket();
+    setInterval(generate_rocket, 3000);
     setInterval(generate_rocket, 5000);
-    setInterval(generate_rocket, 8000);
 
     // count stars and rockets
     function count_sky() {
