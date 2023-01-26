@@ -1,11 +1,390 @@
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, i    nitial-scale=1.0">
-    <title>Page not available</title>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/assets/favicon.ico" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no, height=device-height, user-scalable=no" />
+    <meta name="theme-color" content="#141e26" />
+    <meta name="description" content="Myoasis - Assets" />
+    <link rel="apple-touch-icon" href="/assets/favicon.ico" />
+    <link rel="manifest" href="/assets/manifest.json" />
+    <link rel="stylesheet" href="https://assets.myoasis.tech/icons/font-awesome-6/css/all.min.css">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <title>404 : Page not available</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monoton">
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-size: 16px;
+        }
+
+        code {
+            font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+        }
+
+        body,
+        html,
+        *,
+        *::before,
+        *::after,
+        :host,
+        :root {
+            word-wrap: break-word;
+            box-sizing: border-box;
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        #root {
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            inset: 0;
+            height: 100vh;
+            width: 100vw;
+            z-index: 1;
+        }
+
+        .header,
+        .footer {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 10px 20px;
+            flex-wrap: nowrap;
+            gap: 20px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .header {
+            align-items: flex-start;
+        }
+
+        .hdlogo {
+            width: 50px;
+            height: 50px;
+        }
+
+        .hdcount {
+            display: inline-block;
+            white-space: nowrap;
+            color: #fff;
+        }
+
+
+        .ftcopy {
+            color: #bbb;
+        }
+
+        .ftflow {
+            display: inline-flex;
+            gap: 20px;
+            flex-wrap: nowrap;
+        }
+
+        .ftadd {
+            display: inline-flex;
+            padding: 5px 20px;
+            background-color: #fff4;
+            border-radius: 5px;
+            backdrop-filter: blur(16px);
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
+            color: #ddd;
+            transition: .2s;
+            border: none;
+            user-select: none;
+        }
+
+        .ftadd:disabled {
+            background-color: #fff1;
+            color: #727888;
+        }
+
+        .ftadd:not(:disabled):hover {
+            box-shadow: 0 0 0 1px #fff8;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .ftadd:not(:disabled):active {
+            background-color: #fff2;
+        }
+
+        .open-sky {
+            display: block;
+            position: fixed;
+            inset: 0;
+        }
+
+        .boundry {
+            animation: rotating_sky 10s infinite 0s;
+            background-image: linear-gradient(0deg, #6B4984, #483475, #2B2F77, #141852, #070B34);
+            position: fixed;
+            inset: -50vw -50vh;
+        }
+
+        @keyframes rotating_sky {
+            0% {
+                rotate: 0deg;
+            }
+
+            100% {
+                rotate: 360deg;
+            }
+        }
+
+        .star {
+            width: 5px;
+            height: 5px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: .4s;
+        }
+
+        .rocket {
+            position: absolute;
+        }
+
+        .hidden {
+            top: 0;
+            left: 0;
+            z-index: -111;
+            position: absolute;
+        }
+
+        .main {
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-block: auto;
+        }
+
+        .neon {
+            font-family: 'Monoton', cursive;
+            color: #FFD5FF;
+            font-weight: 400;
+            letter-spacing: 8px;
+            text-shadow: 1px 0px 4px #FFD5FF, 2px 0px 4px #FFD5FF, 3px 0px 4px #FFD5FF, 2px 0px 3px #D42CCA, 2px 3px 15px #D42CCA, 2px 0px 15px, 5px 0px 125px, 20px 0vw 200px #D42CCA, 40px 0vw 200px #D42CCA;
+        }
+        .neontop {
+            font-size: 130px;
+        }
+        .neonbot {
+            font-size: 40px;
+        }
+
+        .flicker-slow {
+            animation: flicker 3s linear infinite;
+        }
+
+        .flicker-fast {
+            animation: flicker 1s linear infinite;
+        }
+
+        @media screen and (max-width: 401px) {
+            .header, .footer {
+                gap: 10px;
+                padding-inline: 10px;
+            }
+            .ftflow {
+                gap: 10px;
+            }
+        }
+
+        @keyframes flicker {
+
+            0%,
+            19.999%,
+            22%,
+            62.999%,
+            64%,
+            64.999%,
+            70%,
+            100% {
+                /* text-shadow: none; */
+                opacity: .99;
+
+            }
+
+            20%,
+            21.999%,
+            63%,
+            63.999%,
+            65%,
+            69.999% {
+                opacity: 0.4;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    This is a 404 page.
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div class="boundry"></div>
+    <div class="open-sky" id="sky">
+    </div>
+    <div class="hidden">
+        <lottie-player class="rocket" src="https://assets3.lottiefiles.com/packages/lf20_ii6qdbgz.json"
+            background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+    </div>
+    <div id="root">
+        <header class="header">
+            <img class="hdlogo" src="/assets/logo192.png" alt="">
+            <div class="hdcount" id="counter"></div>
+        </header>
+        <main class="main">
+            <div class="neon">
+                <div class="neontop"><span class="flicker-fast">4</span><span class="flicker-slow">0</span><span class="flicker-fast">4</span></div>
+                <div class="neonbot">p<span class="flicker-fast">A</span>g<span class="flicker-slow">E</span> n<span class="flicker-fast">O</span>t <span class="flicker-slow">F</span>oU<span class="flicker-fast">n</span>D</div>
+            </div>
+        </main>
+        <footer class="footer">
+            <div class="ftcopy">© Myoasis.tech</div>
+            <div class="ftflow">
+                <button class="ftadd" id="rocket" onclick="generate_rocket()">Throw rocket</button>
+                <button class="ftadd" id="star" onclick="generate_stars()">Add stars</button>
+            </div>
+        </footer>
+    </div>
 </body>
+
 </html>
+
+<script>
+    // random generator function
+    const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+    const random_color = () => Math.floor(Math.random() * 16777215).toString(16);
+    const random_star = () => [random(0, window.innerHeight), random(0, window.innerWidth)];
+
+    // random rocket coordinate generator
+    const random_coordinate = () => {
+        function angle(sx, sy, ex, ey) {
+            const dy = ey - sy;
+            const dx = ex - sx;
+            let theta = Math.atan2(dy, dx);
+            theta *= 180 / Math.PI;
+            return theta;
+        }
+        const size = random(50, 150);
+        const possibility = [
+            {
+                sx: random(0 - size, window.innerWidth + size),
+                sy: window.innerHeight + size,
+                ex: random(0 - size, window.innerWidth + size),
+                ey: 0 - size,
+            },
+            {
+                sx: random(0 - size, window.innerWidth + size),
+                sy: 0 - size,
+                ex: random(0 - size, window.innerWidth + size),
+                ey: window.innerHeight + size,
+            },
+            {
+                sx: 0 - size,
+                sy: random(0 - size, window.innerHeight + size),
+                ex: window.innerWidth + size,
+                ey: random(0 - size, window.innerHeight + size),
+            },
+            {
+                sx: window.innerWidth + size,
+                sy: random(0 - size, window.innerHeight + size),
+                ex: 0 - size,
+                ey: random(0 - size, window.innerHeight + size),
+            },
+        ];
+        const coor = possibility[random(0, 3)];
+        return {
+            s: size,
+            sx: coor.sx,
+            sy: coor.sy,
+            ex: coor.ex,
+            ey: coor.ey,
+            a: angle(coor.sx, coor.sy, coor.ex, coor.ey),
+        };
+    };
+
+
+    // stars
+    let generated_start = 0;
+    function generate_stars() {
+        const x = document.getElementById('sky');
+        for (let i = 0; i < random(20, 70); i++) {
+            if (generated_start > 500) return generate_stars_max();
+            const s = document.createElement('div');
+            s.className = 'star';
+            x.appendChild(s);
+            generate_stars_fly(s, 1);
+            generated_start++;
+        }
+    }
+    function generate_stars_max() {
+        const b = document.getElementById('star');
+        b.innerHTML = "Max stars in the sky";
+        b.disabled = true;
+    }
+    function generate_stars_fly(i, f) {
+        const s = random(1, 5);
+        const t = f ? random(0, 500) : random(5000, 10000);
+        const c = random_star();
+        i.style.width = s + "px";
+        i.style.height = s + "px";
+        i.style.top = c[0] + "px";
+        i.style.left = c[1] + "px";
+        i.style.transition = t + "ms ease";
+        i.style.rotate = random(0, 360) + "deg";
+        i.style.backgroundColor = "#" + random_color();
+        i.style.borderRadius = random(s / 4, s / 2) + "px";
+        setTimeout(() => generate_stars_fly(i), t);
+    }
+
+
+    // rocket
+    function generate_rocket() {
+        function set_coordinates(e, l, t) {
+            e.style.top = t + "px";
+            e.style.left = l + "px";
+        }
+        const x = document.getElementById('sky');
+        const r = document.querySelector('.hidden .rocket').cloneNode();
+        const c = random_coordinate();
+        const t = random(3000, 6000);
+        const l = 20;
+        r.style.width = c.s + "px";
+        r.style.height = c.s + "px";
+        r.style.rotate = (c.a + 90) + "deg";
+        r.style.transition = t + "ms linear";
+        set_coordinates(r, c.sx, c.sy);
+        x.appendChild(r);
+        setTimeout(() => set_coordinates(r, c.ex, c.ey), l);
+        setTimeout(() => x.removeChild(r), t + l);
+    }
+
+    // auto generate stars and rockets
+    generate_stars();
+    generate_rocket();
+    setInterval(generate_rocket, 5000);
+    setInterval(generate_rocket, 8000);
+
+    // count stars and rockets
+    function count_sky() {
+        const x = document.getElementById('sky');
+        const c = document.getElementById("counter");
+        const s = x.getElementsByClassName('star').length;
+        const r = x.getElementsByClassName('rocket').length;
+        c.innerHTML = `[🚀 : ${r} | ⭐ : ${s}]`;
+        setTimeout(count_sky, 100);
+    }
+    count_sky();
+</script>
