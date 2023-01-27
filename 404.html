@@ -72,7 +72,7 @@
             display: inline-block;
             white-space: nowrap;
             color: #fff;
-            font-family:'Courier New', Courier, monospace;
+            font-family: 'Courier New', Courier, monospace;
         }
 
 
@@ -175,9 +175,11 @@
             letter-spacing: 8px;
             text-shadow: 1px 0px 4px #FFD5FF, 2px 0px 4px #FFD5FF, 3px 0px 4px #FFD5FF, 2px 0px 3px #D42CCA, 2px 3px 15px #D42CCA, 2px 0px 15px, 5px 0px 125px, 20px 0vw 200px #D42CCA, 40px 0vw 200px #D42CCA;
         }
+
         .neontop {
             font-size: 130px;
         }
+
         .neonbot {
             font-size: 40px;
         }
@@ -220,10 +222,13 @@
                 width: 30px;
                 height: 30px;
             }
-            .header, .footer {
+
+            .header,
+            .footer {
                 gap: 10px;
                 padding-inline: 10px;
             }
+
             .ftflow {
                 gap: 10px;
             }
@@ -247,17 +252,18 @@
         </header>
         <main class="main">
             <div class="neon">
-<div class="neontop"><span class="flicker-fast">4</span><span class="flicker-slow">0</span><span
-        class="flicker-fast">4</span></div>
-<div class="neonbot">p<span class="flicker-fast">A</span>g<span class="flicker-slow">E</span> n<span
-        class="flicker-fast">O</span>t <span class="flicker-slow">F</span>oU<span class="flicker-fast">n</span>D</div>
+                <div class="neontop"><span class="flicker-fast">4</span><span class="flicker-slow">0</span><span
+                        class="flicker-fast">4</span></div>
+                <div class="neonbot">p<span class="flicker-fast">A</span>g<span class="flicker-slow">E</span> n<span
+                        class="flicker-fast">O</span>t <span class="flicker-slow">F</span>oU<span
+                        class="flicker-fast">n</span>D</div>
             </div>
         </main>
         <footer class="footer">
             <div class="ftcopy">© Myoasis.tech</div>
             <div class="ftflow">
-                <button class="ftadd" id="star" onclick="generate_stars()">Add stars in the sky</button>
-                <button class="ftadd" id="rocket" onclick="generate_rocket()">Launch another rocket</button>
+                <button class="ftadd" onclick="star_cycle()">Add stars in the sky</button>
+                <button class="ftadd" onclick="generate_rocket()">Launch another rocket</button>
             </div>
         </footer>
     </div>
@@ -320,31 +326,41 @@
 
     // declare constant variables
     const sky = document.getElementById('sky');
-    const star = document.getElementById('star');
     const counter = document.getElementById("counter");
     const rocket = document.querySelector('.hidden .rocket');
     let generated_stars = 0;
     let generated_rockets = 0;
-    
+
     // stars
-    function generate_stars() {
-        for (let i = 0; i < random(30, 60); i++) {
-            if (generated_stars >= 250) return generate_stars_max();
+    function star_cycle() {
+        generate_star();
+        setTimeout(destroy_star, 4000);
+    }
+    function generate_star() {
+        if (generated_stars < 250){
             const s = document.createElement('div');
             s.className = 'star';
             sky.appendChild(s);
-            generate_stars_fly(s, 1);
+            glitter_star(s);
             generated_stars++;
         }
+        setTimeout(generate_star, random(100, 500));
     }
-    function generate_stars_max() {
-        star.innerHTML = "Sky is full of stars";
-        star.disabled = true;
+    function destroy_star() {
+        const a = sky.querySelectorAll(".star");
+        if (generated_stars > 0 && a.length) {
+            const r = a[random(0, a.length - 1)];
+            if (r && document.contains(r)) {
+                sky.removeChild(r);
+                generated_stars--;
+            }
+        }
+        setTimeout(destroy_star, random(100, 500));
     }
 
-    function generate_stars_fly(i, f) {
+    function glitter_star(i) {
         const s = random(1, 5);
-        const t = f ? random(0, 500) : random(5000, 10000);
+        const t = random(2000, 4000);
         const c = random_star();
         const b = `#${random_color()}`;
         i.style.width = s + "px";
@@ -354,11 +370,11 @@
         i.style.backgroundColor = b;
         i.style.transition = t + "ms ease";
         i.style.borderRadius = random(s / 4, s / 2) + "px";
-        i.style.rotate = (random(0, 360) * random(3, 9)) + "deg";
         i.style.animation = `flicker ${t / 5}s linear infinite`;
         i.style.boxShadow = `0px 0px 12px 1px ${b}`;
-        setTimeout(() => generate_stars_fly(i), t);
     }
+
+
 
 
     // rocket
@@ -386,7 +402,7 @@
     }
 
     // auto generate stars and rockets
-    generate_stars();
+    star_cycle();
     generate_rocket();
     setInterval(generate_rocket, 5000);
 
